@@ -24,7 +24,6 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"syscall"
 	"text/template"
 	"time"
 
@@ -383,7 +382,7 @@ func handleJWTSecret() error {
 		}
 	}
 
-	rawScript, err := templates.Scripts.ReadFile(filepath.Join("scripts", "jwt_secret.sh"))
+	rawScript, err := templates.Scripts.ReadFile(strings.Join([]string{"scripts", "jwt_secret.sh"}, "/"))
 	if err != nil {
 		return fmt.Errorf(configs.GenerateJWTSecretError, err)
 	}
@@ -441,7 +440,8 @@ func feeRecipientPrompt() error {
 func preRunTeku() error {
 	log.Info(configs.PreparingTekuDatadir)
 	// Change umask to avoid OS from changing the permissions
-	syscall.Umask(0)
+	// FIXME: fix this syscall for windows
+	// syscall.Umask(0)
 	for _, s := range *services {
 		if s == "all" || s == consensus {
 			// Prepare consensus datadir

@@ -16,7 +16,7 @@ limitations under the License.
 package generate
 
 import (
-	"path/filepath"
+	"strings"
 	"text/template"
 
 	"github.com/NethermindEth/sedge/configs"
@@ -38,7 +38,7 @@ a. error
 Error if any
 */
 func GenerateConfig(path string) (err error) {
-	rawTmp, err := templates.Config.ReadFile(filepath.Join("config", "config.tmpl"))
+	rawTmp, err := templates.Config.ReadFile(strings.Join([]string{"config", "config.tmpl"}, "/"))
 	if err != nil {
 		return
 	}

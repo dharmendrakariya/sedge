@@ -238,6 +238,7 @@ func runInPty(cmd *exec.Cmd, getOutput bool) (out string, err error) {
 	// Handle pty size.
 	ch := make(chan os.Signal, 1)
 	errCh := make(chan error)
+	// FIXME: fix issues with syscall.SIGWINCH for windows
 	// if runtime.GOOS != "windows" {
 	// 	signal.Notify(ch, syscall.SIGWINCH)
 	// }
