@@ -40,7 +40,7 @@ require (
 	github.com/stretchr/testify v1.8.0 // indirect
 	github.com/subosito/gotenv v1.2.0 // indirect
 	golang.org/x/net v0.0.0-20210813160813-60bc85c4be6d // indirect
-	golang.org/x/sys v0.0.0-20211210111614-af8b64212486 // indirect
+	golang.org/x/sys v0.0.0-20220721230656-c6bc011c0c49 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	gopkg.in/cenkalti/backoff.v1 v1.1.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
@@ -49,3 +49,5 @@ require (
 	gorm.io/driver/sqlite v1.3.1 // indirect
 	gorm.io/gorm v1.23.4 // indirect
 )
+
+replace github.com/creack/pty v1.1.17 => github.com/photostorm/pty v1.1.19-0.20220726170355-82ad6226c1ca

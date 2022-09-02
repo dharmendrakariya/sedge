@@ -1,5 +1,5 @@
-//go:build linux || darwin
-// +build linux darwin
+//go:build linux || darwin || windows
+// +build linux darwin windows
 
 /*
 Copyright 2022 Nethermind
@@ -27,7 +27,6 @@ import (
 	"os/signal"
 	"strings"
 	"sync"
-	"syscall"
 
 	"github.com/NethermindEth/sedge/configs"
 	"github.com/creack/pty"
@@ -239,7 +238,9 @@ func runInPty(cmd *exec.Cmd, getOutput bool) (out string, err error) {
 	// Handle pty size.
 	ch := make(chan os.Signal, 1)
 	errCh := make(chan error)
-	signal.Notify(ch, syscall.SIGWINCH)
+	// if runtime.GOOS != "windows" {
+	// 	signal.Notify(ch, syscall.SIGWINCH)
+	// }
 	go func() {
 		for sig := range ch {
 			log.Debug(sig)
@@ -250,7 +251,7 @@ func runInPty(cmd *exec.Cmd, getOutput bool) (out string, err error) {
 		}
 		close(errCh)
 	}()
-	ch <- syscall.SIGWINCH                        // Initial resize.
+	// ch <- syscall.SIGWINCH                        // Initial resize.
 	defer func() { signal.Stop(ch); close(ch) }() // Cleanup signals when done.
 
 	for {
